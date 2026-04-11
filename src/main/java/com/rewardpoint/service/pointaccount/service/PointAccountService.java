@@ -27,9 +27,9 @@ public class PointAccountService {
         return PointAccountResult.from(saved);
     }
 
-    public PointAccountResult getByUserId(String userId) {
-        PointAccount pointAccount = pointAccountRepository.findByUserId(userId)
-                .orElseThrow(() -> new PointAccountNotFoundException(userId));
+    public PointAccountResult getById(Long accountId) {
+        PointAccount pointAccount = pointAccountRepository.findById(accountId)
+                .orElseThrow(() -> new PointAccountNotFoundException(accountId));
         return PointAccountResult.from(pointAccount);
     }
 }

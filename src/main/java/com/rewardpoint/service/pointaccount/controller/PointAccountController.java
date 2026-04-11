@@ -30,8 +30,8 @@ public class PointAccountController {
         );
     }
 
-    @GetMapping("/{userId}")
-    public PointAccountResponse getByUserId(@PathVariable String userId) {
-        return PointAccountResponse.from(pointAccountService.getByUserId(userId));
+    @GetMapping("/{accountId}")
+    public PointAccountResponse getById(@PathVariable Long accountId) {
+        return PointAccountResponse.from(pointAccountService.getById(accountId));
     }
 }
