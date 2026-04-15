@@ -15,6 +15,7 @@ public interface PointGrantRepository extends JpaRepository<PointGrant, Long> {
     @Query("""
             select l
             from PointGrant l
+            join fetch l.transaction t
             where l.account.accountId = :accountId
               and l.remainingAmount > 0
               and l.expireAt > :now

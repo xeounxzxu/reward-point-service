@@ -13,6 +13,8 @@ import com.rewardpoint.service.pointledger.entity.PointUse;
 import com.rewardpoint.service.pointledger.entity.PointUseAllocation;
 import java.time.LocalDateTime;
 import java.util.List;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceUnitUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,9 @@ class PointUseAllocationRepositoryTest {
     @Autowired
     private PointUseAllocationRepository pointUseAllocationRepository;
 
+    @Autowired
+    private EntityManager entityManager;
+
     @Test
     @DisplayName("allocation은 생성 순서대로 조회된다")
     void findsUseAllocationsInCreationOrder() {
@@ -51,9 +56,14 @@ class PointUseAllocationRepositoryTest {
         PointUseAllocation first = pointUseAllocationRepository.save(new PointUseAllocation(pointUse, grantA, 300L));
 
         List<PointUseAllocation> allocations = pointUseAllocationRepository.findByPointUseOrderByAllocationIdAsc(pointUse);
+        PersistenceUnitUtil persistenceUnitUtil = entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
 
         assertThat(allocations).extracting(PointUseAllocation::getAllocationId)
                 .containsExactly(second.getAllocationId(), first.getAllocationId());
+        assertThat(allocations).allSatisfy(allocation -> {
+            assertThat(persistenceUnitUtil.isLoaded(allocation, "grant")).isTrue();
+            assertThat(persistenceUnitUtil.isLoaded(allocation.getGrant(), "transaction")).isTrue();
+        });
     }
 
     private PointGrant saveGrant(PointAccount account, String transactionKey) {

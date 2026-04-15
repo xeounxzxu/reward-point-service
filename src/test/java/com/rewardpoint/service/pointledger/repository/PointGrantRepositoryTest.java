@@ -11,6 +11,8 @@ import com.rewardpoint.service.pointledger.entity.PointTransaction;
 import com.rewardpoint.service.pointledger.entity.PointTransactionType;
 import java.time.LocalDateTime;
 import java.util.List;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceUnitUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ class PointGrantRepositoryTest {
     @Autowired
     private PointAccountRepository pointAccountRepository;
 
+    @Autowired
+    private EntityManager entityManager;
+
     @Test
     @DisplayName("사용 가능한 지급 건은 수기 우선, 만료일 오름차순으로 조회된다")
     void findsAvailableGrantsForUseInExpectedOrder() {
@@ -45,9 +50,11 @@ class PointGrantRepositoryTest {
         pointGrantRepository.saveAndFlush(empty);
 
         List<PointGrant> grants = pointGrantRepository.findAvailableGrantsForUse(account.getAccountId(), now);
+        PersistenceUnitUtil persistenceUnitUtil = entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
 
         assertThat(grants).extracting(grant -> grant.getTransaction().getTransactionKey())
                 .containsExactly("tx-manual-late", "tx-normal-early");
+        assertThat(grants).allSatisfy(grant -> assertThat(persistenceUnitUtil.isLoaded(grant, "transaction")).isTrue());
         assertThat(grants).doesNotContain(expired, empty);
     }
 
