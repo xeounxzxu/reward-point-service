@@ -22,6 +22,7 @@ public class PointUseAllocation extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "point_use_allocation_id")
     private Long allocationId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

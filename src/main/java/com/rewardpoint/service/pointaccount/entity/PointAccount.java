@@ -28,6 +28,7 @@ public class PointAccount extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id")
     private Long accountId;
 
     @Column(name = "user_id", nullable = false, length = 50)

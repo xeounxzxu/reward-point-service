@@ -31,6 +31,7 @@ public class PointTransaction extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
     private Long transactionId;
 
     @Column(name = "point_key", nullable = false, length = 36)

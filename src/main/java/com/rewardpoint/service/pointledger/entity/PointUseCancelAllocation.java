@@ -24,6 +24,7 @@ public class PointUseCancelAllocation extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "point_use_cancel_allocation_id")
     private Long useCancelAllocationId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

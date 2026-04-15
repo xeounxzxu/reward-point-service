@@ -23,6 +23,7 @@ public class PointExpirationHistory extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "point_expiration_history_id")
     private Long expirationHistoryId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

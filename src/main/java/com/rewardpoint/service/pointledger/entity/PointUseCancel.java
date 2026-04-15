@@ -23,6 +23,7 @@ public class PointUseCancel extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "use_cancel_id")
     private Long useCancelId;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)

@@ -24,6 +24,7 @@ public class PointUse extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "use_id")
     private Long useId;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)

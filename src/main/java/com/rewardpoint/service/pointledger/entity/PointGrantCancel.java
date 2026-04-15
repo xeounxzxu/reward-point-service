@@ -23,6 +23,7 @@ public class PointGrantCancel extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "earn_cancel_id")
     private Long grantCancelId;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)

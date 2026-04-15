@@ -19,6 +19,7 @@ public class PointPolicy extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "point_policy_id")
     private Long policyId;
 
     @Column(nullable = false)

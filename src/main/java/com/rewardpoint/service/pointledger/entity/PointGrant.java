@@ -27,6 +27,7 @@ public class PointGrant extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "earn_lot_id")
     private Long grantId;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
