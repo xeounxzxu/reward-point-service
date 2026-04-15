@@ -1,7 +1,7 @@
 package com.rewardpoint.service.pointuse.controller;
 
-import com.rewardpoint.service.pointledger.support.dto.PointOperationResponse;
-import com.rewardpoint.service.pointledger.support.dto.PointOperationResult;
+import com.rewardpoint.service.pointcore.support.dto.PointOperationResponse;
+import com.rewardpoint.service.pointcore.support.dto.PointOperationResult;
 import com.rewardpoint.service.pointuse.controller.dto.CancelUsePointRequest;
 import com.rewardpoint.service.pointuse.controller.dto.UsePointRequest;
 import com.rewardpoint.service.pointuse.service.PointUseService;

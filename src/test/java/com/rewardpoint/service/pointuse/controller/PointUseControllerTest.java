@@ -7,14 +7,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rewardpoint.service.pointledger.entity.PointGrant;
-import com.rewardpoint.service.pointledger.entity.PointTransaction;
-import com.rewardpoint.service.pointledger.entity.PointUse;
-import com.rewardpoint.service.pointledger.entity.PointUseAllocation;
-import com.rewardpoint.service.pointledger.repository.PointGrantRepository;
-import com.rewardpoint.service.pointledger.repository.PointTransactionRepository;
-import com.rewardpoint.service.pointledger.repository.PointUseAllocationRepository;
-import com.rewardpoint.service.pointledger.repository.PointUseRepository;
+import com.rewardpoint.service.pointearn.entity.PointGrant;
+import com.rewardpoint.service.pointcore.entity.PointTransaction;
+import com.rewardpoint.service.pointuse.entity.PointUse;
+import com.rewardpoint.service.pointuse.entity.PointUseAllocation;
+import com.rewardpoint.service.pointearn.repository.PointGrantRepository;
+import com.rewardpoint.service.pointcore.repository.PointTransactionRepository;
+import com.rewardpoint.service.pointuse.repository.PointUseAllocationRepository;
+import com.rewardpoint.service.pointuse.repository.PointUseRepository;
 import com.rewardpoint.service.pointaccount.entity.PointAccount;
 import com.rewardpoint.service.pointaccount.repository.PointAccountRepository;
 import java.lang.reflect.Field;

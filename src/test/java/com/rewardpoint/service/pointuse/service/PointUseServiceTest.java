@@ -10,26 +10,26 @@ import static org.mockito.Mockito.verify;
 import com.rewardpoint.service.pointaccount.entity.PointAccount;
 import com.rewardpoint.service.pointaccount.exception.PointAccountNotFoundException;
 import com.rewardpoint.service.pointaccount.repository.PointAccountRepository;
-import com.rewardpoint.service.pointledger.entity.PointGrant;
-import com.rewardpoint.service.pointledger.entity.PointGrantType;
-import com.rewardpoint.service.pointledger.entity.PointTransaction;
-import com.rewardpoint.service.pointledger.entity.PointTransactionType;
-import com.rewardpoint.service.pointledger.entity.PointUse;
-import com.rewardpoint.service.pointledger.entity.PointUseAllocation;
-import com.rewardpoint.service.pointledger.entity.PointUseCancel;
-import com.rewardpoint.service.pointledger.entity.PointUseCancelAllocation;
-import com.rewardpoint.service.pointledger.entity.PointUseCancelRestoreType;
-import com.rewardpoint.service.pointledger.exception.PointOperationException;
-import com.rewardpoint.service.pointledger.repository.PointGrantRepository;
-import com.rewardpoint.service.pointledger.repository.PointTransactionRepository;
-import com.rewardpoint.service.pointledger.repository.PointUseAllocationRepository;
-import com.rewardpoint.service.pointledger.repository.PointUseCancelAllocationRepository;
-import com.rewardpoint.service.pointledger.repository.PointUseCancelRepository;
-import com.rewardpoint.service.pointledger.repository.PointUseRepository;
-import com.rewardpoint.service.pointledger.support.PointExpirationService;
-import com.rewardpoint.service.pointledger.support.PointPolicyService;
-import com.rewardpoint.service.pointledger.support.TransactionKeyGenerator;
-import com.rewardpoint.service.pointledger.support.dto.PointOperationResult;
+import com.rewardpoint.service.pointearn.entity.PointGrant;
+import com.rewardpoint.service.pointearn.entity.PointGrantType;
+import com.rewardpoint.service.pointcore.entity.PointTransaction;
+import com.rewardpoint.service.pointcore.entity.PointTransactionType;
+import com.rewardpoint.service.pointuse.entity.PointUse;
+import com.rewardpoint.service.pointuse.entity.PointUseAllocation;
+import com.rewardpoint.service.pointuse.entity.PointUseCancel;
+import com.rewardpoint.service.pointuse.entity.PointUseCancelAllocation;
+import com.rewardpoint.service.pointuse.entity.PointUseCancelRestoreType;
+import com.rewardpoint.service.pointcore.exception.PointOperationException;
+import com.rewardpoint.service.pointearn.repository.PointGrantRepository;
+import com.rewardpoint.service.pointcore.repository.PointTransactionRepository;
+import com.rewardpoint.service.pointuse.repository.PointUseAllocationRepository;
+import com.rewardpoint.service.pointuse.repository.PointUseCancelAllocationRepository;
+import com.rewardpoint.service.pointuse.repository.PointUseCancelRepository;
+import com.rewardpoint.service.pointuse.repository.PointUseRepository;
+import com.rewardpoint.service.pointearn.support.PointExpirationService;
+import com.rewardpoint.service.pointcore.support.PointPolicyService;
+import com.rewardpoint.service.pointcore.support.TransactionKeyGenerator;
+import com.rewardpoint.service.pointcore.support.dto.PointOperationResult;
 import com.rewardpoint.service.pointuse.service.dto.CancelUsePointCommand;
 import com.rewardpoint.service.pointuse.service.dto.UsePointCommand;
 import java.time.LocalDateTime;
@@ -153,7 +153,7 @@ class PointUseServiceTest {
             setField(grant, "grantId", 20L);
             return grant;
         });
-        given(pointPolicyService.getActivePolicy()).willReturn(new com.rewardpoint.service.pointledger.entity.PointPolicy(
+        given(pointPolicyService.getActivePolicy()).willReturn(new com.rewardpoint.service.pointcore.entity.PointPolicy(
                 100_000L,
                 1_000_000L,
                 30,

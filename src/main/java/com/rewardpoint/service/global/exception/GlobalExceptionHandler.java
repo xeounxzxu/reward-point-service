@@ -1,8 +1,8 @@
 package com.rewardpoint.service.global.exception;
 
-import com.rewardpoint.service.pointledger.exception.PointOperationException;
-import com.rewardpoint.service.pointledger.exception.PointPolicyNotFoundException;
-import com.rewardpoint.service.pointledger.exception.PointTransactionNotFoundException;
+import com.rewardpoint.service.pointcore.exception.PointOperationException;
+import com.rewardpoint.service.pointcore.exception.PointPolicyNotFoundException;
+import com.rewardpoint.service.pointcore.exception.PointTransactionNotFoundException;
 import com.rewardpoint.service.pointaccount.exception.PointAccountAlreadyExistsException;
 import com.rewardpoint.service.pointaccount.exception.PointAccountNotFoundException;
 import java.util.stream.Collectors;
