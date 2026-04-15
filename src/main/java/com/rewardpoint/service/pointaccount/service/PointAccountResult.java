@@ -1,4 +1,4 @@
-package com.rewardpoint.service.pointaccount.service.dto;
+package com.rewardpoint.service.pointaccount.service;
 
 import com.rewardpoint.service.pointaccount.entity.PointAccount;
 import com.rewardpoint.service.pointaccount.entity.PointAccountStatus;

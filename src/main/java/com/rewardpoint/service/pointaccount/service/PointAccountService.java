@@ -4,15 +4,12 @@ import com.rewardpoint.service.pointaccount.entity.PointAccount;
 import com.rewardpoint.service.pointaccount.exception.PointAccountAlreadyExistsException;
 import com.rewardpoint.service.pointaccount.exception.PointAccountNotFoundException;
 import com.rewardpoint.service.pointaccount.repository.PointAccountRepository;
-import com.rewardpoint.service.pointaccount.service.dto.CreatePointAccountCommand;
-import com.rewardpoint.service.pointaccount.service.dto.PointAccountResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class PointAccountService {
 
     private final PointAccountRepository pointAccountRepository;
@@ -23,13 +20,16 @@ public class PointAccountService {
             throw new PointAccountAlreadyExistsException(command.userId());
         }
 
-        PointAccount saved = pointAccountRepository.save(new PointAccount(command.userId()));
-        return PointAccountResult.from(saved);
+        PointAccount pointAccount = new PointAccount(command.userId());
+
+        PointAccount savedPointAccount = pointAccountRepository.save(pointAccount);
+
+        return PointAccountResult.from(savedPointAccount);
     }
 
     public PointAccountResult getById(Long accountId) {
-        PointAccount pointAccount = pointAccountRepository.findById(accountId)
+        return pointAccountRepository.findById(accountId)
+                .map(PointAccountResult::from)
                 .orElseThrow(() -> new PointAccountNotFoundException(accountId));
-        return PointAccountResult.from(pointAccount);
     }
 }

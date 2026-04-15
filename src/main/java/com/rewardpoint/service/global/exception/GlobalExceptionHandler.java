@@ -1,5 +1,8 @@
 package com.rewardpoint.service.global.exception;
 
+import com.rewardpoint.service.pointledger.exception.PointOperationException;
+import com.rewardpoint.service.pointledger.exception.PointPolicyNotFoundException;
+import com.rewardpoint.service.pointledger.exception.PointTransactionNotFoundException;
 import com.rewardpoint.service.pointaccount.exception.PointAccountAlreadyExistsException;
 import com.rewardpoint.service.pointaccount.exception.PointAccountNotFoundException;
 import java.util.stream.Collectors;
@@ -20,6 +23,26 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PointAccountAlreadyExistsException.class)
     public ProblemDetail handlePointAccountAlreadyExists(PointAccountAlreadyExistsException exception) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, exception.getMessage());
+    }
+
+    @ExceptionHandler(PointTransactionNotFoundException.class)
+    public ProblemDetail handlePointTransactionNotFound(PointTransactionNotFoundException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
+    }
+
+    @ExceptionHandler(PointOperationException.class)
+    public ProblemDetail handlePointOperation(PointOperationException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ProblemDetail handleIllegalArgument(IllegalArgumentException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(PointPolicyNotFoundException.class)
+    public ProblemDetail handlePolicyNotFound(PointPolicyNotFoundException exception) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

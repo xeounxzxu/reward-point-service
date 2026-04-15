@@ -1,4 +1,4 @@
-package com.rewardpoint.service.pointaccount.service.dto;
+package com.rewardpoint.service.pointaccount.service;
 
 public record CreatePointAccountCommand(
         String userId

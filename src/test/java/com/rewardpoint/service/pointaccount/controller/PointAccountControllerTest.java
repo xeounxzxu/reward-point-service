@@ -71,11 +71,11 @@ class PointAccountControllerTest {
 
         mockMvc.perform(post("/api/point-accounts")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
+                .content("""
                                 {"userId":"duplicate-user"}
                                 """))
                 .andExpect(status().isConflict())
-                .andExpect(jsonPath("$.detail").value("Point account already exists. userId=duplicate-user"));
+                .andExpect(jsonPath("$.detail").value("포인트 계정이 이미 존재합니다. userId=duplicate-user"));
     }
 
     @Test
@@ -83,11 +83,11 @@ class PointAccountControllerTest {
     void returnsBadRequestWhenUserIdIsBlank() throws Exception {
         mockMvc.perform(post("/api/point-accounts")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
+                .content("""
                                 {"userId":""}
                                 """))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.detail").value("userId: userId is required."));
+                .andExpect(jsonPath("$.detail").value("userId: userId는 필수입니다."));
     }
 
     @Test
@@ -95,6 +95,6 @@ class PointAccountControllerTest {
     void returnsNotFoundWhenPointAccountDoesNotExist() throws Exception {
         mockMvc.perform(get("/api/point-accounts/{accountId}", 999999L))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.detail").value("Point account not found. accountId=999999"));
+                .andExpect(jsonPath("$.detail").value("포인트 계정을 찾을 수 없습니다. accountId=999999"));
     }
 }

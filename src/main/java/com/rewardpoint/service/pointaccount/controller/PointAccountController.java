@@ -1,9 +1,8 @@
 package com.rewardpoint.service.pointaccount.controller;
 
-import com.rewardpoint.service.pointaccount.controller.dto.CreatePointAccountRequest;
-import com.rewardpoint.service.pointaccount.controller.dto.PointAccountResponse;
+import com.rewardpoint.service.pointaccount.service.CreatePointAccountCommand;
+import com.rewardpoint.service.pointaccount.service.PointAccountResult;
 import com.rewardpoint.service.pointaccount.service.PointAccountService;
-import com.rewardpoint.service.pointaccount.service.dto.CreatePointAccountCommand;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,13 +24,17 @@ public class PointAccountController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PointAccountResponse create(@Valid @RequestBody CreatePointAccountRequest request) {
-        return PointAccountResponse.from(
-                pointAccountService.create(new CreatePointAccountCommand(request.userId()))
-        );
+        CreatePointAccountCommand command = new CreatePointAccountCommand(request.userId());
+
+        PointAccountResult pointAccountResult = pointAccountService.create(command);
+
+        return PointAccountResponse.from(pointAccountResult);
     }
 
     @GetMapping("/{accountId}")
     public PointAccountResponse getById(@PathVariable Long accountId) {
-        return PointAccountResponse.from(pointAccountService.getById(accountId));
+        PointAccountResult pointAccountResult = pointAccountService.getById(accountId);
+
+        return PointAccountResponse.from(pointAccountResult);
     }
 }

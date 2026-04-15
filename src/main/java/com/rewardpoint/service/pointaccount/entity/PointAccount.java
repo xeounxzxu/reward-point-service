@@ -56,7 +56,7 @@ public class PointAccount extends BaseTimeEntity {
 
     public void use(long amount) {
         if (this.currentBalance < amount) {
-            throw new IllegalArgumentException("Not enough balance.");
+            throw new IllegalArgumentException("포인트 잔액이 부족합니다.");
         }
         this.currentBalance -= amount;
     }
