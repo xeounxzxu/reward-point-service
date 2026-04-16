@@ -98,6 +98,20 @@ class PointUseControllerTest {
     }
 
     @Test
+    @DisplayName("주문번호가 비어 있으면 포인트를 사용할 수 없다")
+    void returnsBadRequestWhenOrderNoIsBlank() throws Exception {
+        PointAccount account = pointAccountRepository.save(new PointAccount("blank-order-user"));
+
+        mockMvc.perform(post("/api/points/use")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"accountId":%d,"orderNo":"","amount":100,"description":"use"}
+                                """.formatted(account.getAccountId())))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.detail").value("orderNo: must not be blank"));
+    }
+
+    @Test
     @DisplayName("사용취소 시 만료된 지급 건은 신규 적립으로 재발행된다")
     void reissuesExpiredGrantOnUseCancel() throws Exception {
         PointAccount account = pointAccountRepository.save(new PointAccount("cancel-user"));

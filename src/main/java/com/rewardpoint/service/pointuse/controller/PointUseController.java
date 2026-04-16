@@ -4,6 +4,7 @@ import com.rewardpoint.service.pointcore.support.dto.PointOperationResponse;
 import com.rewardpoint.service.pointcore.support.dto.PointOperationResult;
 import com.rewardpoint.service.pointuse.controller.dto.CancelUsePointRequest;
 import com.rewardpoint.service.pointuse.controller.dto.UsePointRequest;
+import com.rewardpoint.service.pointuse.service.PointUseCancelService;
 import com.rewardpoint.service.pointuse.service.PointUseService;
 import com.rewardpoint.service.pointuse.service.dto.CancelUsePointCommand;
 import com.rewardpoint.service.pointuse.service.dto.UsePointCommand;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PointUseController {
 
     private final PointUseService pointUseService;
+    private final PointUseCancelService pointUseCancelService;
 
     @PostMapping("/use")
     public PointOperationResponse use(@Valid @RequestBody UsePointRequest request) {
@@ -44,7 +46,7 @@ public class PointUseController {
                 request.description()
         );
 
-        PointOperationResult pointOperationResult = pointUseService.cancelUse(command);
+        PointOperationResult pointOperationResult = pointUseCancelService.cancelUse(command);
 
         return PointOperationResponse.from(pointOperationResult);
     }

@@ -155,7 +155,7 @@ public class PointEarnService {
     }
 
     private PointAccount getAccount(Long accountId) {
-        return pointAccountRepository.findById(accountId)
+        return pointAccountRepository.findByIdForUpdate(accountId)
                 .orElseThrow(() -> new PointAccountNotFoundException(accountId));
     }
 

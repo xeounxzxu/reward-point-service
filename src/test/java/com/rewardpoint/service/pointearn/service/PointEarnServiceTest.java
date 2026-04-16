@@ -70,7 +70,7 @@ class PointEarnServiceTest {
         PointAccount account = account(1L, "earn-user", 100L);
         PointPolicy policy = new PointPolicy(100_000L, 1_000_000L, 30, 1, 365, true);
 
-        given(pointAccountRepository.findById(1L)).willReturn(Optional.of(account));
+        given(pointAccountRepository.findByIdForUpdate(1L)).willReturn(Optional.of(account));
         given(pointPolicyService.getActivePolicy()).willReturn(policy);
         given(transactionKeyGenerator.generate()).willReturn("tx-earn");
         given(pointTransactionRepository.save(any(PointTransaction.class))).willAnswer(invocation -> {
@@ -102,7 +102,7 @@ class PointEarnServiceTest {
     @Test
     @DisplayName("존재하지 않는 계정으로 적립하면 예외가 발생한다")
     void throwsWhenAccountMissingOnEarn() {
-        given(pointAccountRepository.findById(99L)).willReturn(Optional.empty());
+        given(pointAccountRepository.findByIdForUpdate(99L)).willReturn(Optional.empty());
 
         assertThatThrownBy(() -> pointEarnService.earn(new EarnPointCommand(99L, 100L, false, 30, "earn")))
                 .isInstanceOf(PointAccountNotFoundException.class)
@@ -115,7 +115,7 @@ class PointEarnServiceTest {
         PointAccount account = account(1L, "earn-user", 950L);
         PointPolicy policy = new PointPolicy(100_000L, 1_000L, 30, 1, 365, true);
 
-        given(pointAccountRepository.findById(1L)).willReturn(Optional.of(account));
+        given(pointAccountRepository.findByIdForUpdate(1L)).willReturn(Optional.of(account));
         given(pointPolicyService.getActivePolicy()).willReturn(policy);
 
         assertThatThrownBy(() -> pointEarnService.earn(new EarnPointCommand(1L, 100L, false, 30, "earn")))
@@ -131,7 +131,7 @@ class PointEarnServiceTest {
         PointAccount account = account(1L, "earn-user", 100L);
         PointPolicy policy = new PointPolicy(100_000L, 1_000_000L, 30, 1, 365, true);
 
-        given(pointAccountRepository.findById(1L)).willReturn(Optional.of(account));
+        given(pointAccountRepository.findByIdForUpdate(1L)).willReturn(Optional.of(account));
         given(pointPolicyService.getActivePolicy()).willReturn(policy);
 
         assertThatThrownBy(() -> pointEarnService.earn(new EarnPointCommand(1L, 100L, false, 365, "earn")))
@@ -155,7 +155,7 @@ class PointEarnServiceTest {
                 false
         );
 
-        given(pointAccountRepository.findById(1L)).willReturn(Optional.of(account));
+        given(pointAccountRepository.findByIdForUpdate(1L)).willReturn(Optional.of(account));
         given(pointTransactionRepository.findByTransactionKey("target-tx")).willReturn(Optional.of(targetTransaction));
         given(pointGrantRepository.findByTransaction(targetTransaction)).willReturn(Optional.of(targetGrant));
         given(transactionKeyGenerator.generate()).willReturn("cancel-tx");
@@ -191,7 +191,7 @@ class PointEarnServiceTest {
         );
         targetGrant.use(100L);
 
-        given(pointAccountRepository.findById(1L)).willReturn(Optional.of(account));
+        given(pointAccountRepository.findByIdForUpdate(1L)).willReturn(Optional.of(account));
         given(pointTransactionRepository.findByTransactionKey("target-tx")).willReturn(Optional.of(targetTransaction));
         given(pointGrantRepository.findByTransaction(targetTransaction)).willReturn(Optional.of(targetGrant));
 
@@ -204,7 +204,7 @@ class PointEarnServiceTest {
     @DisplayName("존재하지 않는 거래 키로 적립취소하면 예외가 발생한다")
     void throwsWhenTransactionMissingOnCancelEarn() {
         PointAccount account = account(1L, "cancel-user", 500L);
-        given(pointAccountRepository.findById(1L)).willReturn(Optional.of(account));
+        given(pointAccountRepository.findByIdForUpdate(1L)).willReturn(Optional.of(account));
         given(pointTransactionRepository.findByTransactionKey("missing-tx")).willReturn(Optional.empty());
 
         assertThatThrownBy(() -> pointEarnService.cancelEarn(new CancelEarnPointCommand(1L, "missing-tx", "cancel earn")))
