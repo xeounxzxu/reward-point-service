@@ -1,7 +1,7 @@
 package com.rewardpoint.service.pointaccount.controller;
 
 import com.rewardpoint.service.pointaccount.entity.PointAccountStatus;
-import com.rewardpoint.service.pointaccount.service.PointAccountResult;
+import com.rewardpoint.service.pointaccount.service.dto.PointAccountResult;
 import java.time.LocalDateTime;
 
 public record PointAccountResponse(

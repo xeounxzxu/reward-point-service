@@ -4,6 +4,8 @@ import com.rewardpoint.service.pointaccount.entity.PointAccount;
 import com.rewardpoint.service.pointaccount.exception.PointAccountAlreadyExistsException;
 import com.rewardpoint.service.pointaccount.exception.PointAccountNotFoundException;
 import com.rewardpoint.service.pointaccount.repository.PointAccountRepository;
+import com.rewardpoint.service.pointaccount.service.dto.CreatePointAccountCommand;
+import com.rewardpoint.service.pointaccount.service.dto.PointAccountResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

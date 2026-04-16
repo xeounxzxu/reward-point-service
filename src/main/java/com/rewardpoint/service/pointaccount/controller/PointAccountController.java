@@ -1,8 +1,8 @@
 package com.rewardpoint.service.pointaccount.controller;
 
-import com.rewardpoint.service.pointaccount.service.CreatePointAccountCommand;
-import com.rewardpoint.service.pointaccount.service.PointAccountResult;
 import com.rewardpoint.service.pointaccount.service.PointAccountService;
+import com.rewardpoint.service.pointaccount.service.dto.CreatePointAccountCommand;
+import com.rewardpoint.service.pointaccount.service.dto.PointAccountResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
