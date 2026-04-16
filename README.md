@@ -88,4 +88,7 @@
 
 ## 다이어그램
 
+### Point Account
+
+![Point Account](https://raw.githubusercontent.com/xeounxzxu/reward-point-service/main/POINT_ACCOUNT.png)
 
