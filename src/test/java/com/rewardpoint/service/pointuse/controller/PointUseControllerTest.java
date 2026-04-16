@@ -1,6 +1,8 @@
 package com.rewardpoint.service.pointuse.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -17,6 +19,7 @@ import com.rewardpoint.service.pointuse.repository.PointUseAllocationRepository;
 import com.rewardpoint.service.pointuse.repository.PointUseRepository;
 import com.rewardpoint.service.pointaccount.entity.PointAccount;
 import com.rewardpoint.service.pointaccount.repository.PointAccountRepository;
+import com.rewardpoint.service.support.RestDocsUtils;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,6 +27,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureRestDocs
 @DisplayName("포인트 사용 컨트롤러 테스트")
 class PointUseControllerTest {
 
@@ -69,6 +74,16 @@ class PointUseControllerTest {
                         .content("""
                                 {"accountId":%d,"orderNo":"ORDER-MANUAL","amount":1200,"description":"use"}
                                 """.formatted(account.getAccountId())))
+                .andDo(RestDocsUtils.documentWithPrettyPrint(
+                        "point-use",
+                        requestFields(
+                                fieldWithPath("accountId").description("포인트 계정 ID"),
+                                fieldWithPath("orderNo").description("주문 번호"),
+                                fieldWithPath("amount").description("사용 금액"),
+                                fieldWithPath("description").optional().description("사용 설명")
+                        ),
+                        RestDocsUtils.pointOperationResponseSnippet()
+                ))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.transactionType").value("USE"))
                 .andExpect(jsonPath("$.currentBalance").value(300))
@@ -111,6 +126,16 @@ class PointUseControllerTest {
                         .content("""
                                 {"accountId":%d,"targetTransactionKey":"%s","cancelAmount":1100,"description":"cancel-use"}
                                 """.formatted(account.getAccountId(), useTransactionKey)))
+                .andDo(RestDocsUtils.documentWithPrettyPrint(
+                        "point-use-cancel",
+                        requestFields(
+                                fieldWithPath("accountId").description("포인트 계정 ID"),
+                                fieldWithPath("targetTransactionKey").description("취소할 사용 거래 키"),
+                                fieldWithPath("cancelAmount").description("취소 금액"),
+                                fieldWithPath("description").optional().description("사용취소 설명")
+                        ),
+                        RestDocsUtils.pointOperationResponseSnippet()
+                ))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.currentBalance").value(1400))
                 .andReturn();

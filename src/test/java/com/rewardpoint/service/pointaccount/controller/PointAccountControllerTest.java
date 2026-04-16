@@ -1,15 +1,22 @@
 package com.rewardpoint.service.pointaccount.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.rewardpoint.service.support.RestDocsUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,6 +24,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureRestDocs
 @DisplayName("포인트 계정 컨트롤러 테스트")
 class PointAccountControllerTest {
 
@@ -31,6 +39,13 @@ class PointAccountControllerTest {
                         .content("""
                                 {"userId":"user-1"}
                                 """))
+                .andDo(RestDocsUtils.documentWithPrettyPrint(
+                        "point-account-create",
+                        requestFields(
+                                fieldWithPath("userId").description("포인트 계정을 생성할 사용자 식별자")
+                        ),
+                        RestDocsUtils.pointAccountResponseSnippet()
+                ))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.accountId").isNumber())
                 .andExpect(jsonPath("$.userId").value("user-1"))
@@ -54,6 +69,13 @@ class PointAccountControllerTest {
         assertThat(accountId).isNotBlank();
 
         mockMvc.perform(get("/api/point-accounts/{accountId}", accountId))
+                .andDo(RestDocsUtils.documentWithPrettyPrint(
+                        "point-account-get",
+                        pathParameters(
+                                parameterWithName("accountId").description("조회할 포인트 계정 ID")
+                        ),
+                        RestDocsUtils.pointAccountResponseSnippet()
+                ))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userId").value("user-lookup"))
                 .andExpect(jsonPath("$.status").value("ACTIVE"));

@@ -1,0 +1,69 @@
+= Reward Point Service API Docs
+:toc: left
+:toclevels: 2
+:sectanchors:
+:source-highlighter: highlight.js
+
+== Point Account API
+
+=== 포인트 계정 생성
+
+include::{snippets}/point-account-create/http-request.adoc[]
+
+include::{snippets}/point-account-create/request-fields.adoc[]
+
+include::{snippets}/point-account-create/http-response.adoc[]
+
+include::{snippets}/point-account-create/response-fields.adoc[]
+
+=== 포인트 계정 조회
+
+include::{snippets}/point-account-get/path-parameters.adoc[]
+
+include::{snippets}/point-account-get/http-response.adoc[]
+
+include::{snippets}/point-account-get/response-fields.adoc[]
+
+== Point Earn API
+
+=== 포인트 적립
+
+include::{snippets}/point-earn/http-request.adoc[]
+
+include::{snippets}/point-earn/request-fields.adoc[]
+
+include::{snippets}/point-earn/http-response.adoc[]
+
+include::{snippets}/point-earn/response-fields.adoc[]
+
+=== 포인트 적립 취소
+
+include::{snippets}/point-earn-cancel/http-request.adoc[]
+
+include::{snippets}/point-earn-cancel/request-fields.adoc[]
+
+include::{snippets}/point-earn-cancel/http-response.adoc[]
+
+include::{snippets}/point-earn-cancel/response-fields.adoc[]
+
+== Point Use API
+
+=== 포인트 사용
+
+include::{snippets}/point-use/http-request.adoc[]
+
+include::{snippets}/point-use/request-fields.adoc[]
+
+include::{snippets}/point-use/http-response.adoc[]
+
+include::{snippets}/point-use/response-fields.adoc[]
+
+=== 포인트 사용 취소
+
+include::{snippets}/point-use-cancel/http-request.adoc[]
+
+include::{snippets}/point-use-cancel/request-fields.adoc[]
+
+include::{snippets}/point-use-cancel/http-response.adoc[]
+
+include::{snippets}/point-use-cancel/response-fields.adoc[]
